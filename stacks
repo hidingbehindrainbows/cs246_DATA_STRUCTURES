@@ -180,4 +180,4 @@ int display(struct stack *p)
     }
 }
 
-//STACKS WITH POINTERS IS OVER
+//STACKS WITH POINTERS IS OVER 
