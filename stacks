@@ -1,0 +1,183 @@
+//THIS IS STACKS WITHOUT POINTERS
+
+#include<stdio.h>
+#include<stdlib.h>
+#define STACK_SIZE 3
+int stack[STACK_SIZE], top = -1, item;
+int push();
+int pop();
+int display();
+int main()
+{
+    int choice;
+    while(1)
+    {
+        printf("\n1:\tPush\n2:\tPop\n3:\tDisplay\n4:\tExit\n");
+        printf("Enter your choice:\t");
+        scanf("%d", &choice);
+        switch(choice)
+        {
+            case 1:
+                push();
+                break;
+            case 2:
+                pop();
+                break;
+            case 3:
+                display();
+                break;
+            case 4:
+                exit(0);
+                break;
+        }
+    }
+    return 0;
+}
+
+int push()
+{
+    if(top==(STACK_SIZE-1))
+    {
+        printf("Stack Overflow\n");
+        return 0;
+    }
+    else
+    {
+        printf("\nEnter number to be added:\t");
+        top+=1;
+        scanf("%d", &stack[top]);
+        return 0;
+    }
+}
+
+int pop()
+{
+    if(top==-1)
+    {
+        printf("Stack Underflow.\n");
+        return 0;
+    }
+    else
+    {
+        top-=1;
+        printf("Deleting %d\n", stack[top]);
+        return 0;
+    }
+}
+
+int display()
+{
+    int i;
+    if(top==-1)
+    {
+        printf("No items to print.\n");
+        return 0;
+    }
+    else
+    {
+        for(i=top;i>=0;i--)
+        {
+            printf("\n%d\n",stack[i]);
+        }
+        return 0;
+    }
+}
+
+//STACKS WITHOUT POINTERS IS DONE
+
+//STACKS USING POINTERS HAS BEGUN
+
+#include<stdio.h>
+#include<stdlib.h>
+#define STACK_SIZE 3
+struct stack
+{
+    int s[STACK_SIZE];
+    int top;
+}st;
+int push(struct stack *);
+int pop(struct stack *);
+int display(struct stack *);
+int main()
+{
+    int choice;
+    st.top = -1;
+    while(1)
+    {
+        printf("\n1:\tPush\n2:\tPop\n3:\tDisplay\n4:\tExit\n");
+        printf("Enter your choice:\t");
+        scanf("%d", &choice);
+        switch(choice)
+        {
+            case 1:
+                push(&st);
+                break;
+            case 2:
+                pop(&st);
+                break;
+            case 3:
+                display(&st);
+                break;
+            case 4:
+                exit(0);
+                break;
+            default: printf("Invalid choice\n");
+        }
+    }
+    return 0;
+}
+
+int push(struct stack *p)
+{
+    int new;
+    if(p->top==(STACK_SIZE-1))
+    {
+        printf("Stack Overflow\n");
+        return 0;
+    }
+    else
+    {
+        printf("\nEnter number to be added:\t");
+        p->top+=1;
+        scanf("%d", &new);
+        p->s[p->top] = new;
+        return 0;
+    }
+}
+
+int pop(struct stack *p)
+{
+    int del;
+    if(p->top==-1)
+    {
+        printf("Stack Underflow.\n");
+        return 0;
+    }
+    else
+    {
+        del = p->top;
+        p->top-=1;
+        printf("Deleting %d\n", del);
+        return 0;
+    }
+}
+
+int display(struct stack *p)
+{
+    int i;
+    if(p->top==-1)
+    {
+        printf("No items to print.\n");
+        return 0;
+    }
+    else
+    {
+        for(i=p->top;i>=0;i--)
+        {
+            printf("\n%d\n",p->s[i]);
+        }
+        return 0;
+    }
+}
+
+//STACKS WITH POINTERS IS OVER
