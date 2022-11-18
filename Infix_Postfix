@@ -1,0 +1,90 @@
+#include<stdio.h>
+#include<string.h>
+int index_here = 0, pos = 0, top =-1;
+char symbol, temp, infix[20], postfix[20], stack[20];
+int infix_postfix();
+int push(char symbol);
+int pop();
+int pred(char symbol);
+int main()
+{
+    printf("Enter your expression.\n");
+    scanf("%s", infix);
+    infix_postfix();
+    printf("The infix postions is: %s\n", infix);
+    printf("The postfix postions is: %s\n", postfix);
+    return 0;
+}
+int infix_postfix()
+{
+    push('#');
+    while(index_here<strlen(infix))
+    {
+        symbol = infix[index_here];
+        switch(symbol)
+        {
+            case '(': push(symbol);
+                break;
+            case ')': temp = pop();
+                while(temp!='(')
+                {
+                    postfix[pos]=temp;
+                    pos++;
+                    temp=pop();
+                }
+                break;
+            case '+':
+            case '-':
+            case '*':
+            case '/':
+            case '^': while(pred(stack[top])>=pred(symbol))
+                {
+                    temp = pop();
+                    postfix[pos++]=temp;
+                }
+                push(symbol);
+                break;
+            default:postfix[pos++]=symbol;
+        }
+        index_here++;
+    }
+    while(top>0)
+    {
+        temp = pop();
+        postfix[pos++]=temp;
+    }
+    return 0;
+}
+int push(char symbol)
+{
+    top++;
+    stack[top]=symbol;
+    return 0;
+}
+int pop()
+{
+    char symb;
+    symb=stack[top];
+    top--;
+   return symb; 
+}
+int pred(char symbol)
+{
+    int p;
+    switch(symbol)
+    {
+        case '^': p=3;
+            break;
+        case '*':
+        case '/': p = 2;
+            break;
+        case '+':
+        case '-': p = 1;
+            break;
+        case '(': p = 0;
+            break;
+        case '#': p=-1;
+            break;
+    }
+    return p;
+}
