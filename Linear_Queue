@@ -1,0 +1,75 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define size 4
+int front = 0, rear = 0, queue[size];
+//int size = 4;
+int insert();
+int deli();
+int display();
+int main()
+{
+    int choice;
+    printf("1:\tInsert\n2:\tDelete\n3:\tDisplay\n4:\tExit\n");
+    while(1)
+    {
+    printf("Enter your choice:\n");
+    scanf("%d", &choice);
+    switch(choice)
+    {
+        case 1: insert();
+                break;
+        case 2: deli();
+                break;
+        case 3: display();
+                break;
+        case 4: exit(0);
+                break;
+        default: printf("Invalid!");
+    }
+    }
+    return 0;
+}
+
+int insert()
+{
+    if(rear == size-1)
+    {
+        printf("Queue is full\n");
+    }
+    else
+    {
+        printf("\nEnter the number to insert:\t");
+        scanf("%d",&queue[rear]);
+        rear++;
+    }
+    return 0;
+}
+int deli()
+{
+    if(front == rear)
+    {
+        printf("Nothing to delete\n");
+    }
+    else
+    {
+        printf("\nDeleting %d\n", queue[front]);
+        front++;
+    }
+    return 0;
+}
+int display()
+{
+    int i = 0, item;
+    if(front == rear)
+    {
+        printf("Nothing to show\n");
+    }
+    else
+    {
+        for(i = front; i<rear;i++)
+        {
+            item = queue[i];
+            printf("%d ",item);
+        }
+    }
+}
