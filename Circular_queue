@@ -2,7 +2,7 @@
 #include<stdlib.h>
 #define size 4
 int front = 0, rear = 0, qc[size];
-int insert()
+int insert();
 int deli();
 int display();
 int main()
@@ -24,6 +24,7 @@ int main()
             case 4: exit(0);
                 break;
             default: printf("Invalid!");
+                break;
         }
     }
     return 0;
@@ -31,25 +32,15 @@ int main()
 
 int insert()
 {
-    if(front = 0 and rear = size-1) || (front==rear+1)
+    if((front == 0) && (rear == size-1) || (front==rear+1))
     {
-        printf("Queue is full");
+        printf("Queue is full\n");
     }
     else
     {
-        if(rear != size-1)
-        {
-            printf("\nEnter the number to insert:\t");
-            scanf("%d",&queue[rear]);
-            rear++;
-        }
-        else
-        {
-            rear = 0;
-            printf("\nEnter the number to insert:\t");
-            scanf("\n%d",&queue[rear]);
-            rear++;
-        }
+        printf("\nEnter the number to insert:\t");
+        scanf("\n%d",&qc[rear]);
+        rear  = (rear+1)%size ;
     }
     return 0;
 }
@@ -57,25 +48,17 @@ int deli()
 {
     if(front == rear)
     {
-        printf("\nNothing to delete\n")
+        printf("\nNothing to delete\n");
     }
     else
     {
         printf("\nDeleting %d\n", qc[front]);
-        if(front == size-1)
-        {
-            front = 0;
-        }
-        else
-        {
-            front++;
-        }
+        front = (front+1)%size;
     }
     return 0;
 }
-int display()
+int display(int i)
 {
-    int i=0;
     if(front==rear)
     {
         printf("Nothing to display");
@@ -84,18 +67,18 @@ int display()
     {
         if(front<rear)
         {
-            for(i=front;i<rear;i++)
+            for(i=front;i<rear+1;i++)
             {
-                printf("\n%d", qc[i])
+                printf("\n%d", qc[i]);
             }
         }
         else
         {
             for(i=front;i<size-1;i++)
             {
-                printf("\n%d",qc[i])
+                printf("\n%d",qc[i]);
             }
-            for(i=0; i<rear;i++)
+            for(i=0; i<rear+1;i++)
             {
                 printf("\n%d",qc[i]);
             }
