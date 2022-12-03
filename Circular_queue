@@ -75,15 +75,31 @@ int deli()
 }
 int display()
 {
+    int i=0;
     if(front==rear)
     {
         printf("Nothing to display");
     }
     else
     {
-        for(i=front;i<rear;i++)
+        if(front<rear)
         {
-            printf("\n%d", qc[i])
+            for(i=front;i<rear;i++)
+            {
+                printf("\n%d", qc[i])
+            }
+        }
+        else
+        {
+            for(i=front;i<size-1;i++)
+            {
+                printf("\n%d",qc[i])
+            }
+            for(i=0; i<rear;i++)
+            {
+                printf("\n%d",qc[i]);
+            }
         }
     }
+    return 0;
 }
