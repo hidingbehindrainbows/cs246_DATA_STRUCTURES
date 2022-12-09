@@ -1,0 +1,78 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct NODE
+{
+    int data;
+    struct Node *link;
+};
+typedef struct NODE Node;
+Node *start = NULL;
+
+
+void create()
+{
+    int choice;
+    Node *new, *curr;
+    start = (Node*)malloc(sizeof(Node));
+    curr = start;
+    printf("Enter element:\n");
+    scanf("%d", &start->data);
+    while(1)
+    {
+        printf("Do you want to add an element? 0 for no\n");
+        scanf("%d", &choice);
+        if(choice!=0)
+        {
+            new = (Node*)malloc(sizeof(Node));
+            printf("Please enter element:\n");
+            scanf("%d", &new->data);
+            curr->link = new;
+            curr = new;
+        }
+        else
+        {
+            curr->link=NULL;
+            break;
+        }
+    }
+}
+
+void disp()
+{
+    Node *temp;
+    temp = start;
+    if(start==NULL)
+    {
+        printf("Linked list is empty\n");
+        return;
+    }
+    while(temp!=NULL)
+    {
+        printf("%d\t", temp->data);
+        temp= temp->link;
+    }
+    
+}
+
+void main()
+{
+    int choice;
+    printf("Choose 1 to add or 2 to display or 3 to exit\n");
+    while(1)
+    {
+        printf("Enter choice:\n");
+        scanf("%d", &choice);
+        switch(choice)
+        {
+            case 1: create();
+                break;
+            case 2: disp();
+                break;
+            case 3: exit(0);
+                break;
+            default: printf("Invalid");
+                break;
+        }
+    }
+}
