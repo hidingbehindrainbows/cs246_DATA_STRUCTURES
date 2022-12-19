@@ -1,41 +1,114 @@
 #include<stdio.h>
 #include<stdlib.h>
-
 struct NODE
 {
     int data;
-    struct Node *link;
+    struct NODE *link;
 };
 typedef struct NODE Node;
 Node *start = NULL;
+void insert_beg();
+void insert_any();
+void create();
+void disp();
+void delete_beg();
+void delete_end();
+void delete_pos();
 
+void main()
+{
+    int choice;
+    printf("Choose from:\n1: insert at beginning\n2: insert at end\n3: to insert at custom\n4 to display\n5 to delete at beginning\n6 to delete at end\n7 to delete at custom position\n 8 to exit\n");
+    while(1)
+    {
+        printf("Enter choice:\n");
+        scanf("%d", &choice);
+        switch(choice)
+        {
+            case 1: insert_beg();
+                break;
+            case 2: create();
+                break;
+            case 3: insert_any();
+                break;
+            case 4: disp();
+                break;
+            case 5: delete_beg();
+                break;
+            case 6: delete_end();
+                break;
+            case 7: delete_pos();
+                break;
+            case 8: exit(0);
+                break;
+            default: printf("Invalid\n");
+                break;
+        }
+    }
+}
+
+void insert_beg()
+{
+    Node *new;
+    new = (Node*)malloc(sizeof(Node));
+    printf("\nEnter Element:\n");
+    scanf("%d",&new->data);
+    if(start==NULL)
+    {
+        start = new;
+        new->link = NULL;
+        return;
+    }
+    new -> link = start;
+    start = new;
+}
 
 void create()
 {
-    int choice;
-    Node *new, *curr;
-    start = (Node*)malloc(sizeof(Node));
-    curr = start;
-    printf("Enter element:\n");
-    scanf("%d", &start->data);
-    while(1)
+    Node *new, *prev = start;
+    new = (Node*)malloc(sizeof(Node));
+    printf("Please enter element:\n");
+    scanf("%d", &new->data);
+    if(start==NULL)
     {
-        printf("Do you want to add an element? 0 for no\n");
-        scanf("%d", &choice);
-        if(choice!=0)
-        {
-            new = (Node*)malloc(sizeof(Node));
-            printf("Please enter element:\n");
-            scanf("%d", &new->data);
-            curr->link = new;
-            curr = new;
-        }
-        else
-        {
-            curr->link=NULL;
-            break;
-        }
+        start = new;
+        start->link = NULL;
+        return;
     }
+    while(prev->link!=NULL)
+    {
+        prev = prev->link;
+    }
+    prev->link = new;
+    new->link = NULL;
+}
+
+void insert_any()
+{
+    Node *new, *temp = start; int pos, i=1;
+    new = (Node*)malloc(sizeof(Node));
+    printf("Enter the element to insert:\n");
+    scanf("%d",&new->data);
+    printf("Enter position:\n");
+    scanf("%d", &pos);
+    if(pos==1)
+    {
+        new->link = start;
+        start = new;
+        return;
+    }
+    while(i<pos-1 && temp->link!=NULL)
+    {
+        temp = temp->link;
+        i++;
+    }
+    if(i==(pos-1))
+    {
+        new->link = temp->link;
+        temp->link = new;
+        return;
+    }
+    printf("Invalid Position\n");
 }
 
 void disp()
@@ -49,30 +122,80 @@ void disp()
     }
     while(temp!=NULL)
     {
-        printf("%d\t", temp->data);
+        printf("%d\n", temp->data);
         temp= temp->link;
     }
     
 }
 
-void main()
+void delete_beg()
 {
-    int choice;
-    printf("Choose 1 to add or 2 to display or 3 to exit\n");
-    while(1)
+    Node *temp;
+    if(start == NULL)
     {
-        printf("Enter choice:\n");
-        scanf("%d", &choice);
-        switch(choice)
-        {
-            case 1: create();
-                break;
-            case 2: disp();
-                break;
-            case 3: exit(0);
-                break;
-            default: printf("Invalid");
-                break;
-        }
+        printf("Invalid, SLL is emplty\n");
+        return;
     }
+    temp = start;
+    start = start->link;
+    free(temp);
+}
+
+void delete_end()
+{
+    Node *prev = start, *next;
+    if(start == NULL)
+    {
+        printf("Invalid, SLL is emplty\n");
+        return;
+    }
+    if(start->link == NULL)
+    {
+        printf("Deleting %d\n", start->data);
+        free(start);
+        start = NULL;
+        return;
+    }
+    next = start->link;
+    while(next->link!=NULL)
+    {
+        prev = next;
+        next = next->link;
+    }
+    printf("Deleting: %d", next->data);
+    prev->link = NULL;
+    free(next);
+}
+
+void delete_pos()
+{
+    int del;
+    Node *prev, *next;
+    if(start==NULL)
+    {
+        printf("SLL is empty");
+        return;
+    }
+    printf("Enter choicen\n");
+    scanf("%d", &del);
+    if(start->link==NULL)
+    {
+        printf("Deleting %d", start->data);
+        free(start);
+        start = NULL;
+        return;
+    }
+    prev = start; next = start->link;
+    while(next->data!= del && next!=NULL)
+    {
+        prev = next;
+        next = next->link;
+    }
+    if(next->data = del)
+    {
+        prev->link = next->link;
+        free(next);
+        return;
+    }
+    printf("Element not foundn\n");
 }
